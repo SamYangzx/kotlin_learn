@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         LogUtil.d(ObjectUtil.keyName)
         LogUtil.d("sam", ObjectUtil.keyName)
         LogUtil.d(ConstantConfig.HANDLE_TIMEOUT.toString())
-        var baseType: BaseType = BaseType();
+        val baseType = BaseType();
         baseType.testArray()
         baseType.testList()
 

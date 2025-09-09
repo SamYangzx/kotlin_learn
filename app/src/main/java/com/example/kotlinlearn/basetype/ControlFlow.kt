@@ -5,8 +5,8 @@ fun main() {
     val controlFlow = ControlFlow()
 //    controlFlow.testBase()
 //    controlFlow.testRange()
-//    controlFlow.testWhen()
-    controlFlow.testLoop()
+    controlFlow.testWhen()
+//    controlFlow.testLoop()
 
 }
 
@@ -35,7 +35,7 @@ class ControlFlow {
     }
 
     fun testWhen() {
-        var x = 1
+        var x = 4
         when (x) {
             1 -> println("1")  //no need break
             2 -> println("2")

@@ -2,10 +2,19 @@ package com.example.kotlinlearn.basetype
 
 import android.util.Log
 
+
+/**
+ * abstract    // 抽象类
+ * final       // 类不可继承，默认属性
+ * enum        // 枚举类
+ * open        // 类可继承，类默认是final的
+ * annotation  // 注解类
+ */
 fun main() {
     var baseType: BaseType = BaseType()
-    baseType.testArray()
+//    baseType.testArray()
 //    baseType.testList()
+    baseType.testNullFunction()
 //    baseType.testSet()
 //    baseType.testMap()
 }
@@ -55,11 +64,11 @@ class BaseType {
 
         println("bytes----")
         val bytes = ByteArray(5)
-        bytes[0]=0x00
-        bytes[1]=0x1
-        bytes[2]=0x21
-        bytes[3]=0x31
-        bytes[4]=0x41
+        bytes[0] = 0x00
+        bytes[1] = 0x1
+        bytes[2] = 0x21
+        bytes[3] = 0x31
+        bytes[4] = 0x41
         for ((index, value) in bytes.withIndex()) {
             println("index: $index, value: $value")
 //            Log.d("BaseType", "index: $index, value: $value")
@@ -67,14 +76,14 @@ class BaseType {
 
         println("IntArray---------")
         //创建一个长度为5的空的IntArray
-        val intArray2=IntArray(5)
-        intArray2[1]=1
+        val intArray2 = IntArray(5)
+        intArray2[1] = 1
 
         //创建一个长度为5的值全为100的IntArray
-        val intArray3=IntArray(5){100}
+        val intArray3 = IntArray(5) { 100 }
 
         //注意这里it是他的索引下标值，所以这是一个创建长度为5的IntArray：0，2，4，6，8
-        val intArray4=IntArray(5){it*2}//it,lambad表达式专有变量，这里指的是数组的下标
+        val intArray4 = IntArray(5) { it * 2 }//it,lambad表达式专有变量，这里指的是数组的下标
 
     }
 
@@ -95,6 +104,51 @@ class BaseType {
         println(shapes)
 
     }
+
+
+    /**
+     * singleOrNull(), maxOrNull(), 和 minOrNull() 函数只能用于 不 包含 null 值的集合. 否则, 你就无法区分: 函数找不到需要的值? 还是它找到了 null 值?
+     */
+    fun testNullFunction() {
+        //null
+        val emails = listOf("1@example.com", null, "2@example.com", null)
+        println(emails)
+        val validEmails = emails.filterNotNull()
+        println(validEmails)
+
+        // 一周的温度记录
+        val temperatures = listOf(30, 18, 21, 21, 19, 17, 16)
+
+        val single = listOf(12)
+        println("test null function------")
+//        val singleHotDay = temperatures.singleOrNull()
+        val singleHotDay = single.singleOrNull()
+        println("Single hot day or null: ${singleHotDay ?: "None"}")
+// 输出结果为: Single hot day with 30 degrees: None
+
+// 查找一周中的最高温度
+        val maxTemperature = temperatures.maxOrNull()
+        println("Highest temperature recorded: ${maxTemperature ?: "No data"}")
+// 输出结果为: Highest temperature recorded: 21
+
+// 查找一周中的最低温度
+        val minTemperature = temperatures.minOrNull()
+        println("Lowest temperature recorded: ${minTemperature ?: "No data"}")
+// 输出结果为: Lowest temperature recorded: 15
+
+
+        //第一个不为null的值
+        val names = listOf(null, "sam", "bob")
+        val firstNotNull = names.firstNotNullOfOrNull { it }
+        println(firstNotNull)
+
+
+        //用提供的函数操作，顺序的处理每个集合元素, 并创建一个累计的值
+        val itemPrices = listOf(20, 35, 15)
+        val totalPrice = itemPrices.reduceOrNull { runningTotal, price -> runningTotal + price }
+        println("Total price of items in the cart: ${totalPrice ?: "No items"}")
+    }
+
 
     fun testSet() {
         val readOnlyFruit = setOf("apple", "banana", "orange", "cherry", "cherry")
